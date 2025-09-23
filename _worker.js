@@ -194,11 +194,10 @@ export default {
                   );
                 } else {
                   uri.username = uuid;
+                  uri.searchParams.set("security", port == 443 ? "tls" : "none");
+                  uri.searchParams.set("sni", port == 80 && protocol == atob(flash) ? "" : APP_DOMAIN);
+                  uri.searchParams.set("path", `/${prx.prxIP}-${prx.prxPort}`);
                 }
-
-                uri.searchParams.set("security", port == 443 ? "tls" : "none");
-                uri.searchParams.set("sni", port == 80 && protocol == atob(flash) ? "" : APP_DOMAIN);
-                uri.searchParams.set("path", `/${prx.prxIP}-${prx.prxPort}`);
 
                 uri.hash = `${result.length + 1} ${getFlagEmoji(prx.country)} ${prx.org} WS ${
                   port == 443 ? "TLS" : "NTLS"
